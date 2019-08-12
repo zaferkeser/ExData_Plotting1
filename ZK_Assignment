@@ -1,0 +1,44 @@
+> mydata <- read.csv("C:/Users/zafer/Desktop/R_Training/household_power_consumption.csv", colClasses = c("character", "character", "numeric" ,"numeric" , "numeric", "numeric", "numeric", "numeric", "numeric"))
+##Only the data from 02/01/2007 and 02/02/2007 included as suggested in the website
+
+Plot 1 
+
+> hist (mydata$Global_active_power, main="Global Active Power", xlab= "Global Active Power (kilowatts)", col = "red")
+> dev.copy(png,"Rplot1.png", width=480, height=480)
+> dev.off()
+
+
+
+Plot 2
+
+> SetTime <-strptime(paste(mydata$Date, mydata$Time, sep=" "),"%d/%m/%Y %H:%M:%S")
+> mydata <- cbind(SetTime, mydata)
+> plot(mydata$SetTime, mydata$Global_active_power, type="l", col="black", xlab="", ylab="Global Active Power (kilowatts)")
+> dev.copy(png,"Rplot2.png", width=480, height=480)
+> dev.off()
+
+Plot 3
+
+> columnlines <- c("black", "red", "blue")
+> labels <- c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
+> plot(finalData$SetTime, finalData$Sub_metering_1, type="l", col=columnlines[1], xlab="", ylab="Energy sub metering")
+> lines(finalData$SetTime, finalData$Sub_metering_2, col=columnlines[2])
+> lines(finalData$SetTime, finalData$Sub_metering_3, col=columnlines[3])
+> legend("topright", legend=labels, col=columnlines, lty="solid")
+> dev.copy(png,"Rplot3.png", width=480, height=480)
+> dev.off()
+
+Plot 4
+
+> par(mfrow=c(2,2))
+> columnlines <- c("black","red","blue")
+> labels <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
+> plot(mydata$SetTime, mydata$Global_active_power, type="l", col="green", xlab="", ylab="Global Active Power")
+> plot(mydata$SetTime, mydata$Voltage, type="l", col="orange", xlab="datetime", ylab="Voltage")
+> plot(mydata$SetTime, mydata$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
+> lines(mydata$SetTime, mydata$Sub_metering_2, type="l", col="red")
+> lines(mydata$SetTime, mydata$Sub_metering_3, type="l", col="blue")
+> legend("topright", bty="n", legend=labels, lty=1, col=columnlines)
+> plot(mydata$SetTime, mydata$Global_reactive_power, type="l", col="blue", xlab="datetime", ylab="Global_reactive_power")
+> dev.copy(png,"Rplot3.png", width=480, height=480)
+> dev.off()
